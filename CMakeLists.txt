@@ -29,4 +29,5 @@ add_executable(blackboard
         src/Figures/Rectangle.cpp
         src/Figures/Triangle.h
         src/Figures/Triangle.cpp
-        src/Figures/Circle.cpp)
+        src/Figures/Circle.cpp
+        src/Processors/ConsoleProcessor.cpp)
