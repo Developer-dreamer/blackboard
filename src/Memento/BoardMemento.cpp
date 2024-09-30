@@ -1,5 +1,5 @@
-//
-// Created by Serafym on 21.09.2024.
-//
-
 #include "BoardMemento.h"
+
+BoardMemento::board_state BoardMemento::getState() const {
+    return state_;
+}

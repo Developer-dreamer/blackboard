@@ -5,11 +5,11 @@ using namespace std;
 
 class FileProcessor {
 public:
-    FileProcessor();
+    FileProcessor() = default;
     void save(const vector<vector<char>>& board) const;
     vector<vector<char>> load() const;
 private:
-    const string filename = "board.txt";
+    const string filename_ = "board.txt";
 
     // allows to save boards to different files and
     // not to overwrite the previous ones

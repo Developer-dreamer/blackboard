@@ -5,12 +5,12 @@
 
 Board::Board()
 {
-    board = vector<vector<char>>(100, vector<char>(100, ' '));
+    board_ = vector<vector<char>>(100, vector<char>(100, ' '));
 }
 
 void Board::draw() const
 {
-    for (vector<char> row : board)
+    for (vector<char> row : board_)
     {
         for (char cell : row)
         {
@@ -22,7 +22,7 @@ void Board::draw() const
 
 void Board::clear()
 {
-    for (vector<char> row : board)
+    for (vector<char> row : board_)
     {
         row.clear();
     }
@@ -33,25 +33,30 @@ void getAllFigures()
     // TODO: add an opportunity to detect the figure and its position
 }
 
-void Board::addFigure(unique_ptr<IFigure> figure)
+void Board::addFigure(shared_ptr<IFigure> figure)
 {
-    figures.push_back(move(figure));
-    vector<tuple<int, int>> figureCoordinates = figures.back()->draw();
+    figures_.push_back(move(figure));
+    vector<tuple<int, int>> figureCoordinates = figures_.back()->draw();
 
     for (tuple<int, int> coordinate : figureCoordinates)
     {
-        board[get<0>(coordinate)][get<1>(coordinate)] = '*';
+        board_[get<0>(coordinate)][get<1>(coordinate)] = '*';
     }
 }
 
 void Board::save() const
 {
     FileProcessor fileProcessor;
-    fileProcessor.save(board);
+    fileProcessor.save(board_);
 }
 
 void Board::load()
 {
     FileProcessor fileProcessor;
-    board = fileProcessor.load();
+    board_ = fileProcessor.load();
+}
+
+BoardMemento Board::saveToMemento() const
+{
+    return BoardMemento(make_tuple(board_, figures_));
 }

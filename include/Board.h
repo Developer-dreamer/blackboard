@@ -3,7 +3,11 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include "BoardMemento.h"
 using namespace std;
+
+class BoardMemento;
+class FileProcessor;
 
 class Board {
 public:
@@ -11,10 +15,13 @@ public:
     void draw() const;
     void clear();
     void getAllFigures() const;
-    void addFigure(unique_ptr<IFigure> figure);
+    void addFigure(shared_ptr<IFigure> figure);
     void save() const;
     void load();
+
+    BoardMemento saveToMemento() const;
+    void restoreFromMemento(BoardMemento memento);
 private:
-    vector<vector<char>> board;
-    vector<unique_ptr<IFigure>> figures;
+    vector<vector<char>> board_;
+    vector<shared_ptr<IFigure>> figures_;
 };
