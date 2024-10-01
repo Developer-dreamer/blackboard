@@ -5,7 +5,7 @@
 
 Board::Board()
 {
-    board_ = vector<vector<char>>(30, vector<char>(30, ' '));
+    board_ = vector<vector<char>>(50, vector<char>(50, ' '));
 }
 
 void Board::draw() const

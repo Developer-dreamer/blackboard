@@ -12,7 +12,7 @@ int main() {
     BoardMemento memento(board.saveToMemento());
     BoardCaretaker caretaker;
 
-    shared_ptr<IFigure> figure = make_shared<Triangle>(vector<string>{"Triangle", "3", "8", "7", "2", "12", "7"});
+    shared_ptr<IFigure> figure = make_shared<Triangle>(vector<string>{"Triangle", "10", "10", "10", "20", "20", "10"});
     board.addFigure(figure);
     board.draw();
 }

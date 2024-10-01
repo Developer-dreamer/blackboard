@@ -19,7 +19,7 @@ vector<tuple<int, int>> Triangle::draw() const
     vector<tuple<int, int>> triangle_shape_coords;
     bresenham(vertex_a_, vertex_b_, triangle_shape_coords);
     bresenham(vertex_b_, vertex_c_, triangle_shape_coords);
-    bresenham(vertex_c_, vertex_a_, triangle_shape_coords);
+    bresenham(vertex_a_, vertex_c_, triangle_shape_coords);
     return triangle_shape_coords;
 }
 
@@ -29,17 +29,15 @@ void Triangle::bresenham(tuple<int, int> left_p_, tuple<int, int> right_p_, vect
     int y1 = get<1>(left_p_);
     int x2 = get<0>(right_p_);
     int y2 = get<1>(right_p_);
-
+    triangle_shape_coords.push_back(make_tuple(x1, y1));
     float slope = (y2 - y1) / (float)(x2 - x1);
-    if (slope > 1)
+    if (slope >= 1)
     {
         swap(x1, y1);
         swap(x2, y2);
-
     } else if (slope < 0)
     {
         y1 = -y1;
-        y2 = -y2;
     }
 
     int dx = x2 - x1;
@@ -50,7 +48,7 @@ void Triangle::bresenham(tuple<int, int> left_p_, tuple<int, int> right_p_, vect
     int x = x1;
     int y = y1;
 
-    while (x <= x2)
+    while (x <= x2 )
     {
         ++x;
         if (d < 0){
@@ -60,13 +58,12 @@ void Triangle::bresenham(tuple<int, int> left_p_, tuple<int, int> right_p_, vect
         {
             // move diagonally
             d += 2 * (dy - dx);
-            y = y + 1;
+            ++y;
         }
-
-        if (slope > 1)
+        if (slope >= 1)
         {
             triangle_shape_coords.push_back(make_tuple(y, x));
-        } else if (slope < 1 && slope > 0)
+        } else if (slope < 1 && slope >= 0)
         {
             triangle_shape_coords.push_back(make_tuple(x, y));
         } else
@@ -75,3 +72,4 @@ void Triangle::bresenham(tuple<int, int> left_p_, tuple<int, int> right_p_, vect
         }
     }
 }
+
