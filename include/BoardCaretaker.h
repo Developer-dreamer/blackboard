@@ -8,6 +8,7 @@ public:
     void save(BoardMemento memento);
     BoardMemento undo();
     BoardMemento redo();
+    void resetHistory();
 private:
     list<BoardMemento> history_;
     list<BoardMemento>::iterator current_;

@@ -67,16 +67,24 @@ void Board::addFigure(shared_ptr<IFigure> figure)
     }
 }
 
-void Board::save() const
+void Board::save(const string& filename) const
 {
-    FileProcessor fileProcessor;
+    FileProcessor fileProcessor(filename);
     fileProcessor.save(board_);
 }
 
-void Board::load()
+void Board::load(const string& filename)
 {
-    FileProcessor fileProcessor;
+    FileProcessor fileProcessor(filename);
+    figures_.clear();
     board_ = fileProcessor.load();
+}
+
+bool Board::operator==(const BoardMemento& memento) const
+{
+    auto state = memento.getState();
+
+    return board_ == get<0>(state) && figures_ == get<1>(state);
 }
 
 BoardMemento Board::saveToMemento() const

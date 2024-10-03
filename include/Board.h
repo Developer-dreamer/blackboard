@@ -17,9 +17,9 @@ public:
     void getAllFigures() const;
     void getAllShapes() const;
     void addFigure(shared_ptr<IFigure> figure);
-    void save() const;
-    void load();
-
+    void save(const string& filename) const;
+    void load(const string& filename);
+    bool operator==(const BoardMemento& memento) const;
     BoardMemento saveToMemento() const;
     void restoreFromMemento(BoardMemento memento);
 private:

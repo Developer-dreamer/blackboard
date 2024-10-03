@@ -36,3 +36,9 @@ BoardMemento BoardCaretaker::redo() {
     ++current_;
     return *current_;
 }
+
+void BoardCaretaker::resetHistory()
+{
+    history_.clear();
+    current_ = history_.end();
+}

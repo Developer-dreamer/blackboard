@@ -26,16 +26,32 @@ int main() {
             return 0;
         } else if (command == "save")
         {
-            board.save();
+            cout << "Enter the file to save board in: ";
+            string filename;
+            cin >> filename;
+
+            board.save(filename);
         } else if (command == "load")
         {
-            board.load();
+            cout << "Enter the file to load board from: ";
+            string filename;
+            cin >> filename;
+            board.load(filename);
+            caretaker.resetHistory();
         } else if (command == "undo")
         {
-            board.restoreFromMemento(caretaker.undo());
+            BoardMemento memento = caretaker.undo();
+            if (board == memento)
+                continue;
+            else
+                board.restoreFromMemento(memento);
         } else if (command == "redo")
         {
-            board.restoreFromMemento(caretaker.redo());
+            BoardMemento memento = caretaker.redo();
+            if (board == memento)
+                continue;
+            else
+                board.restoreFromMemento(memento);
         } else if (command == "draw")
         {
             board.draw();
