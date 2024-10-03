@@ -4,6 +4,7 @@
 
 class BoardCaretaker {
 public:
+    BoardCaretaker();
     void save(BoardMemento memento);
     BoardMemento undo();
     BoardMemento redo();

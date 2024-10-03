@@ -60,3 +60,10 @@ BoardMemento Board::saveToMemento() const
 {
     return BoardMemento(make_tuple(board_, figures_));
 }
+
+void Board::restoreFromMemento(BoardMemento memento)
+{
+    tuple<vector<vector<char>>, vector<shared_ptr<IFigure>>> state = memento.getState();
+    board_ = get<0>(state);
+    figures_ = get<1>(state);
+}
