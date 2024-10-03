@@ -43,9 +43,12 @@ int main() {
             board.getAllFigures();
         } else if (command == "add")
         {
-            vector<string> figure_params = ParseHelper::parseCommand();
-
-            if (figure_params[0] == "circle")
+            vector<string> figure_params = ParseHelper::parseCommand(0);
+            if (figure_params[0] == "exit")
+            {
+                cout << "Too much incorrect arguments. Exiting..." << endl;
+                return 0;
+            } else if (figure_params[0] == "circle")
             {
                 shared_ptr<IFigure> circle = make_shared<Circle>(figure_params);
                 board.addFigure(move(circle));

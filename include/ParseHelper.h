@@ -10,7 +10,7 @@
 namespace ParseHelper
 {
     std::vector<std::string> split(const std::string& str, char delimiter);
-    std::vector<std::string> parseCommand();
+    std::vector<std::string> parseCommand(int rcsv_c);
 }
 
 #endif // PARSEHELPE_H

@@ -57,7 +57,13 @@ void Board::addFigure(shared_ptr<IFigure> figure)
 
     for (tuple<int, int> coordinate : figureCoordinates)
     {
-        board_[get<0>(coordinate)][get<1>(coordinate)] = '*';
+        int x  = get<0>(coordinate);
+        int y = get<1>(coordinate);
+
+        if (x < 0 || y < 0 || x >= board_.size() || y >= board_[0].size())
+            continue;
+
+        board_[x][y]= '*';
     }
 }
 
