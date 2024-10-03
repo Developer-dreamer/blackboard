@@ -1,5 +1,8 @@
 #include "Board.h"
 #include <tuple>
+#include "Figures/Circle.h"
+#include "Figures/Rectangle.h"
+#include "Figures/Triangle.h"
 
 #include "FileProcessor.h"
 
@@ -28,9 +31,23 @@ void Board::clear()
     }
 }
 
-void getAllFigures()
+void Board::getAllFigures() const
 {
-    // TODO: add an opportunity to detect the figure and its position
+    for (shared_ptr<IFigure> figure : figures_)
+    {
+        vector<string> figureInfo = figure->getFigureInfo();
+        for (string info : figureInfo)
+        {
+            cout << info << " ";
+        }
+    }
+}
+
+void Board::getAllShapes() const
+{
+    cout << "rectangle <left top x> <left top y> <right bottom x> <right bottom y>" << endl;
+    cout << "circle <center x> <center y> <radius>" << endl;
+    cout << "triangle <x1> <y1> <x2> <y2> <x3> <y3>" << endl;
 }
 
 void Board::addFigure(shared_ptr<IFigure> figure)

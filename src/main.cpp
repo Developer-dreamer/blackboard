@@ -39,6 +39,8 @@ int main() {
         } else if (command == "draw")
         {
             board.draw();
+        } else if (command == "list"){
+            board.getAllFigures();
         } else if (command == "add")
         {
             vector<string> figure_params = ParseHelper::parseCommand();
@@ -46,19 +48,23 @@ int main() {
             if (figure_params[0] == "circle")
             {
                 shared_ptr<IFigure> circle = make_shared<Circle>(figure_params);
-                board.addFigure(circle);
+                board.addFigure(move(circle));
                 caretaker.save(board.saveToMemento());
             } else if (figure_params[0] == "rectangle")
             {
                 shared_ptr<IFigure> rectangle = make_shared<Rectangle>(figure_params);
-                board.addFigure(rectangle);
+                board.addFigure(move(rectangle));
                 caretaker.save(board.saveToMemento());
             } else if (figure_params[0] == "triangle")
             {
                 shared_ptr<IFigure> triangle = make_shared<Triangle>(figure_params);
-                board.addFigure(triangle);
+                board.addFigure(move(triangle));
                 caretaker.save(board.saveToMemento());
             }
+        } else
+        {
+            cout << "Command not found. Try again..." << endl;
         }
+
     }
 }

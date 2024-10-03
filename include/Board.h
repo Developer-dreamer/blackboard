@@ -15,6 +15,7 @@ public:
     void draw() const;
     void clear();
     void getAllFigures() const;
+    void getAllShapes() const;
     void addFigure(shared_ptr<IFigure> figure);
     void save() const;
     void load();
