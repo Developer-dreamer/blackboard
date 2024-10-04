@@ -38,6 +38,7 @@ int main() {
             cin >> filename;
             board.load(filename);
             caretaker.resetHistory();
+            caretaker.save(board.saveToMemento());
         } else if (command == "undo")
         {
             BoardMemento memento = caretaker.undo();
@@ -55,6 +56,9 @@ int main() {
         } else if (command == "draw")
         {
             board.draw();
+        } else if (command == "clear")
+        {
+            board.clear();
         } else if (command == "list"){
             board.getAllFigures();
         } else if (command == "add")

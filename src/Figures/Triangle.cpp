@@ -38,6 +38,7 @@ void Triangle::bresenham(tuple<int, int> left_p_, tuple<int, int> right_p_, vect
     } else if (slope < 0)
     {
         y1 = -y1;
+        y2 = -y2;
     }
 
     int dx = x2 - x1;
@@ -48,7 +49,7 @@ void Triangle::bresenham(tuple<int, int> left_p_, tuple<int, int> right_p_, vect
     int x = x1;
     int y = y1;
 
-    while (x <= x2 )
+    while (x < x2 )
     {
         ++x;
         if (d < 0){
