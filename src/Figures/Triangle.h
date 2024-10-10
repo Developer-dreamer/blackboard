@@ -8,7 +8,7 @@ struct Triangle final: public IFigure
 public:
     explicit Triangle(const vector<string>& params);
     vector<string> getFigureInfo() const override;
-    vector<tuple<int, int>> draw() const override;
+    void draw() override;
 private:
     tuple<int, int > vertex_a_;
     tuple<int, int > vertex_b_;

@@ -4,13 +4,13 @@
 
 struct Circle final : public IFigure {
 public:
-    using coord_v = vector<tuple<int, int>>;
     explicit Circle(const vector<string>& params);
     vector<string> getFigureInfo() const override;
-    coord_v draw() const override;
+    void draw() override;
 private:
     int radius_;
     tuple <int, int > center_;
-    void bresenham(coord_v& circle_shape_coords) const;
-    void EightWaySymmetricPlot(coord_v& circle_shape_coords, int xc,int yc,int x,int y)  const;
+    void bresenham(coords& circle_shape_coords) const;
+    void EightWaySymmetricPlot(coords& circle_shape_coords, int xc,int yc,int x,int y)  const;
+    bool fill(const int& x, const int& cx, const int& y, const int& cy) const;
 };

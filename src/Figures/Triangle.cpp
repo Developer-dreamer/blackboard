@@ -14,13 +14,11 @@ vector<string> Triangle::getFigureInfo() const
     return {"Triangle", to_string(get<0>(vertex_a_)), to_string(get<1>(vertex_a_)), to_string(get<0>(vertex_b_)), to_string(get<1>(vertex_b_)), to_string(get<0>(vertex_c_)), to_string(get<1>(vertex_c_))};
 }
 
-vector<tuple<int, int>> Triangle::draw() const
+void Triangle::draw()
 {
-    vector<tuple<int, int>> triangle_shape_coords;
-    bresenham(vertex_a_, vertex_b_, triangle_shape_coords);
-    bresenham(vertex_b_, vertex_c_, triangle_shape_coords);
-    bresenham(vertex_a_, vertex_c_, triangle_shape_coords);
-    return triangle_shape_coords;
+    bresenham(vertex_a_, vertex_b_, occupied_cells_);
+    bresenham(vertex_b_, vertex_c_, occupied_cells_);
+    bresenham(vertex_a_, vertex_c_, occupied_cells_);
 }
 
 void Triangle::bresenham(tuple<int, int> left_p_, tuple<int, int> right_p_, vector<tuple<int, int>>& triangle_shape_coords) const
