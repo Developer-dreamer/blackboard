@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "Triangle.h"
 using namespace std;
 
@@ -7,6 +8,12 @@ Triangle::Triangle(const vector<string>& params)
     vertex_a_ = make_tuple(stoi(params[1]), stoi(params[2]));
     vertex_b_ = make_tuple(stoi(params[3]), stoi(params[4]));
     vertex_c_ = make_tuple(stoi(params[5]), stoi(params[6]));
+
+    area_ = 0.5 * abs((
+            get<0>(vertex_a_) * (get<1>(vertex_b_) - get<1>(vertex_c_)) +
+            get<0>(vertex_b_) * (get<1>(vertex_c_) - get<1>(vertex_a_)) +
+            get<0>(vertex_c_) * (get<1>(vertex_a_) - get<1>(vertex_b_))
+                    ));
 }
 
 vector<string> Triangle::getFigureInfo() const
@@ -16,9 +23,26 @@ vector<string> Triangle::getFigureInfo() const
 
 void Triangle::draw()
 {
+    //finding bounding box
+    int min_x = min({get<0>(vertex_a_), get<0>(vertex_b_), get<0>(vertex_c_)});
+    int max_x = max({get<0>(vertex_a_), get<0>(vertex_b_), get<0>(vertex_c_)});
+    int min_y = min({get<1>(vertex_a_), get<1>(vertex_b_), get<1>(vertex_c_)});
+    int max_y = max({get<1>(vertex_a_), get<1>(vertex_b_), get<1>(vertex_c_)});
+
     bresenham(vertex_a_, vertex_b_, occupied_cells_);
     bresenham(vertex_b_, vertex_c_, occupied_cells_);
     bresenham(vertex_a_, vertex_c_, occupied_cells_);
+
+    for (int x = min_x; x <= max_x; ++x)
+    {
+        for (int y = min_y; y <= max_y; ++y)
+        {
+            if (fill(x, y))
+            {
+                occupied_cells_.push_back(make_tuple(x, y));
+            }
+        }
+    }
 }
 
 Triangle::coords Triangle::getArea() const
@@ -76,4 +100,28 @@ void Triangle::bresenham(tuple<int, int> left_p_, tuple<int, int> right_p_, vect
         }
     }
 }
+
+bool Triangle::fill(const int& x, const int& y) const
+{
+    int area1 = 0.5 * abs((
+                                  x * (get<1>(vertex_b_) - get<1>(vertex_c_)) +
+                                  get<0>(vertex_b_) * (get<1>(vertex_c_) - y) +
+                                  get<0>(vertex_c_) * (y - get<1>(vertex_b_))
+                          ));
+
+    int area2 = 0.5 * abs((
+                                  get<0>(vertex_a_) * (y - get<1>(vertex_c_)) +
+                                  x * (get<1>(vertex_c_) - get<1>(vertex_a_)) +
+                                  get<0>(vertex_c_) * (get<1>(vertex_a_) - y)
+                          ));
+
+    int area3 = 0.5 * abs((
+                                  get<0>(vertex_a_) * (get<1>(vertex_b_) - y) +
+                                  get<0>(vertex_b_) * (y - get<1>(vertex_a_)) +
+                                  x * (get<1>(vertex_a_) - get<1>(vertex_b_))
+                          ));
+
+    return area1 + area2 + area3 == area_;
+}
+
 
