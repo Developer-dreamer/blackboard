@@ -15,16 +15,18 @@ void Rectangle::draw()
     int right_x = get<0>(right_bottom_coords_);
     int right_y = get<1>(right_bottom_coords_);
 
-    for (int i = left_x; i <= right_x; ++i)
+    for (int i = left_x; i <= right_x; i++)
     {
-        occupied_cells_.push_back({i, left_y});
-        occupied_cells_.push_back({i, right_y});
+        for (int j = left_y; j <= right_y; j++)
+        {
+            occupied_cells_.push_back(make_tuple(i, j));
+        }
     }
+}
 
-    for (int i = left_y; i <= right_y; ++i) {
-        occupied_cells_.push_back({left_x, i});
-        occupied_cells_.push_back({right_x, i});
-    }
+Rectangle::coords Rectangle::getArea() const
+{
+    return occupied_cells_;
 }
 
 vector<string> Rectangle::getFigureInfo() const

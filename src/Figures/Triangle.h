@@ -9,6 +9,7 @@ public:
     explicit Triangle(const vector<string>& params);
     vector<string> getFigureInfo() const override;
     void draw() override;
+    coords getArea() const override;
 private:
     tuple<int, int > vertex_a_;
     tuple<int, int > vertex_b_;

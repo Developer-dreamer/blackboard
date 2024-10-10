@@ -21,6 +21,11 @@ void Triangle::draw()
     bresenham(vertex_a_, vertex_c_, occupied_cells_);
 }
 
+Triangle::coords Triangle::getArea() const
+{
+    return occupied_cells_;
+
+}
 void Triangle::bresenham(tuple<int, int> left_p_, tuple<int, int> right_p_, vector<tuple<int, int>>& triangle_shape_coords) const
 {
     int x1 = get<0>(left_p_);
