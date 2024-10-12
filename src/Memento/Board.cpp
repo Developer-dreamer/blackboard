@@ -106,3 +106,32 @@ void Board::restoreFromMemento(BoardMemento memento)
     board_ = get<0>(state);
     figures_ = get<1>(state);
 }
+
+void Board::select(const int &id) const {
+    try {
+        const auto& figure = figures_.at(id);
+        cout << "Selected figure: ";
+        for (const auto& info : figure->getFigureInfo()) {
+            cout << info << " ";
+        }
+    } catch (const out_of_range& e) {
+        cout << "Figure with id " << id << " not found";
+    }
+}
+
+void Board::select(const int &x, const int &y) const {
+    for (size_t i = 0; i < figures_.size(); i++) {
+        const auto& figure = figures_.at(i);
+        const auto& area = figure->getArea();
+        for (const auto& point : area) {
+            if (get<0>(point) == x && get<1>(point) == y) {
+                cout << "Selected figure: ";
+                for (const auto& info : figure->getFigureInfo()) {
+                    cout << info << " ";
+                }
+                return;
+            }
+        }
+    }
+    cout << "No figure found at (" << x << ", " << y << ")";
+}
