@@ -2,9 +2,10 @@
 
 Rectangle::Rectangle(const vector<string>& params)
 {
-
-    left_top_coords_ = {stoi(params[1]), stoi(params[2])};
-    right_bottom_coords_= {stoi(params[3]), stoi(params[4])};
+    fill_type = params[1];
+    char_ = ColoredChar("*", params[2]);
+    left_top_coords_ = {stoi(params[3]), stoi(params[4])};
+    right_bottom_coords_= {stoi(params[5]), stoi(params[6])};
 }
 
 void Rectangle::draw()

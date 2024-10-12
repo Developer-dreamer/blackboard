@@ -8,24 +8,40 @@
 
 Board::Board()
 {
-    board_ = vector<vector<char>>(50, vector<char>(50, ' '));
+    board_ = vector<vector<ColoredChar>>(50, vector<ColoredChar>(50));
 }
 
 void Board::draw() const
 {
-    for (vector<char> row : board_)
+    for (vector<ColoredChar> row : board_)
     {
-        for (char cell : row)
+        for (ColoredChar cell : row)
         {
-            cout << cell;
+            cout <<cell.getColor() << cell.getChar();
         }
         cout << endl;
     }
 }
 
+void Board::redraw() {
+    clear();
+    for (const auto& figure : figures_)
+    {
+        vector<tuple<int,int>> shape = figure->getArea();
+        for (const auto& point : shape)
+        {
+            int x = get<0>(point);
+            int y = get<1>(point);
+            if (x < 0 || x >= board_.size() || y < 0 || y >= board_[0].size())
+                continue;
+            board_[x][y] = figure->getChar();
+        }
+    }
+}
+
 void Board::clear()
 {
-    for (vector<char> row : board_)
+    for (vector<ColoredChar> row : board_)
     {
         row.clear();
     }
@@ -40,6 +56,7 @@ void Board::getAllFigures() const
         {
             cout << info << " ";
         }
+        cout << endl;
     }
 }
 
@@ -53,18 +70,9 @@ void Board::getAllShapes() const
 void Board::addFigure(shared_ptr<IFigure> figure)
 {
     figures_.push_back(move(figure));
-    vector<tuple<int, int>> figureCoordinates = figures_.back()->draw();
+    figures_.back()->draw();
 
-    for (tuple<int, int> coordinate : figureCoordinates)
-    {
-        int x  = get<0>(coordinate);
-        int y = get<1>(coordinate);
 
-        if (x < 0 || y < 0 || x >= board_.size() || y >= board_[0].size())
-            continue;
-
-        board_[x][y]= '*';
-    }
 }
 
 void Board::save(const string& filename) const
@@ -94,7 +102,7 @@ BoardMemento Board::saveToMemento() const
 
 void Board::restoreFromMemento(BoardMemento memento)
 {
-    tuple<vector<vector<char>>, vector<shared_ptr<IFigure>>> state = memento.getState();
+    tuple<vector<vector<ColoredChar>>, vector<shared_ptr<IFigure>>> state = memento.getState();
     board_ = get<0>(state);
     figures_ = get<1>(state);
 }

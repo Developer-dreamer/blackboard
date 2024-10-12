@@ -2,8 +2,10 @@
 #include <cmath>
 Circle::Circle(const vector<string>& params)
 {
-    center_ = make_tuple(stoi(params[1]), stoi(params[2]));
-    radius_ = stoi(params[3]);
+    fill_type = params[1];
+    char_ = ColoredChar("*", params[2]);
+    center_ = make_tuple(stoi(params[3]), stoi(params[4]));
+    radius_ = stoi(params[5]);
 }
 
 vector<string> Circle::getFigureInfo() const

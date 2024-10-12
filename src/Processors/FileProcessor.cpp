@@ -6,22 +6,22 @@ using namespace std;
 
 FileProcessor::FileProcessor(const string& filename) : filename_(filename)
 {};
-void FileProcessor::save(const vector<vector<char>>& board) const
+void FileProcessor::save(const vector<vector<ColoredChar>>& board) const
 {
     ofstream file(filename_);
     for (const auto& row : board)
     {
         for (const auto& cell : row)
         {
-            file << cell;
+            file << cell.getChar();
         }
         file << endl;
     }
 }
 
-vector<vector<char>> FileProcessor::load() const
+vector<vector<ColoredChar>> FileProcessor::load() const
 {
-    vector<vector<char>> board;
+    vector<vector<ColoredChar>> board;
     ifstream file(filename_);
     if (!file.is_open())
     {
@@ -31,10 +31,10 @@ vector<vector<char>> FileProcessor::load() const
     string line;
     while (getline(file, line))
     {
-        vector<char> row;
+        vector<ColoredChar> row;
         for (const auto& cell : line)
         {
-            row.push_back(cell);
+            row.push_back(ColoredChar(to_string(cell), "white"));
         }
         board.push_back(row);
     }
