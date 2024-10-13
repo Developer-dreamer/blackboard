@@ -14,7 +14,6 @@ struct IFigure
     virtual void draw() = 0;
     virtual coords getArea() const = 0;
     virtual ColoredChar getChar() const = 0;
-    virtual void edit(const vector<string>& params) = 0;
     virtual void edit(const string& color) = 0;
     virtual void moveCoords(const coords& newCoords) = 0;
     virtual ~IFigure() = default;

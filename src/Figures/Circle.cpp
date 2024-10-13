@@ -3,7 +3,7 @@
 Circle::Circle(const vector<string>& params)
 {
     fill_type = params[1];
-    char_ = ColoredChar("*", params[2]);
+    char_ = ColoredChar('*', params[2]);
     center_ = make_tuple(stoi(params[3]), stoi(params[4]));
     radius_ = stoi(params[5]);
 }
@@ -67,4 +67,16 @@ void Circle::EightWaySymmetricPlot(Circle::coords& circle_shape_coords, int xc, 
 bool Circle::fill(const int& x, const int& cx, const int& y, const int& cy) const
 {
     return pow(x - cx, 2) + pow(y - cy, 2) <= pow(radius_, 2);
+}
+
+ColoredChar Circle::getChar() const {
+    return ColoredChar();
+}
+
+void Circle::edit(const string &color) {
+    char_.editColor(color);
+}
+
+void Circle::moveCoords(const IFigure::coords &newCoords) {
+    occupied_cells_ = newCoords;
 }

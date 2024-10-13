@@ -6,7 +6,7 @@ using namespace std;
 Triangle::Triangle(const vector<string>& params)
 {
     fill_type = params[1];
-    char_ = ColoredChar("*", params[2]);
+    char_ = ColoredChar('*', params[2]);
     vertex_a_ = make_tuple(stoi(params[3]), stoi(params[4]));
     vertex_b_ = make_tuple(stoi(params[5]), stoi(params[6]));
     vertex_c_ = make_tuple(stoi(params[7]), stoi(params[8]));
@@ -124,6 +124,18 @@ bool Triangle::fill(const int& x, const int& y) const
                           ));
 
     return area1 + area2 + area3 == area_;
+}
+
+ColoredChar Triangle::getChar() const {
+    return ColoredChar();
+}
+
+void Triangle::edit(const string &color) {
+    char_.editColor(color);
+}
+
+void Triangle::moveCoords(const IFigure::coords &newCoords) {
+    occupied_cells_ = newCoords;
 }
 
 

@@ -3,7 +3,7 @@
 Rectangle::Rectangle(const vector<string>& params)
 {
     fill_type = params[1];
-    char_ = ColoredChar("*", params[2]);
+    char_ = ColoredChar('*', params[2]);
     left_top_coords_ = {stoi(params[3]), stoi(params[4])};
     right_bottom_coords_= {stoi(params[5]), stoi(params[6])};
 }
@@ -33,4 +33,16 @@ Rectangle::coords Rectangle::getArea() const
 vector<string> Rectangle::getFigureInfo() const
 {
     return {"Rectangle", to_string(get<0>(left_top_coords_)), to_string(get<1>(left_top_coords_)), to_string(get<0>(right_bottom_coords_)), to_string(get<1>(right_bottom_coords_))};
+}
+
+ColoredChar Rectangle::getChar() const {
+    return ColoredChar();
+}
+
+void Rectangle::edit(const string &color) {
+    char_.editColor(color);
+}
+
+void Rectangle::moveCoords(const IFigure::coords &newCoords) {
+    occupied_cells_ = newCoords;
 }

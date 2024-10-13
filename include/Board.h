@@ -23,7 +23,7 @@ public:
     void select(const int& x, const int& y);
     void moveFigure(const int& x, const int& y);
     void remove();
-    void edit(const vector<string>& params);
+    void expandFigure(const int& param);
     void paint(const string& color);
     void save(const string& filename) const;
     void load(const string& filename);

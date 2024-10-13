@@ -7,6 +7,9 @@ public:
     explicit Circle(const vector<string>& params);
     vector<string> getFigureInfo() const override;
     void draw() override;
+    ColoredChar getChar() const override;
+    void edit(const string& color) override;
+    void moveCoords(const coords& newCoords) override;
 private:
     int radius_;
     tuple <int, int > center_;
