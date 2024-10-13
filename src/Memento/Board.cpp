@@ -42,9 +42,11 @@ void Board::redraw() {
 
 void Board::clear()
 {
-    for (vector<ColoredChar> row : board_)
+    for (vector<ColoredChar>& row : board_)
     {
-        row.clear();
+        for (ColoredChar& cell : row) {
+            cell = ColoredChar(' ', "white");
+        }
     }
 }
 
@@ -70,10 +72,9 @@ void Board::getAllShapes() const
 
 void Board::addFigure(shared_ptr<IFigure> figure)
 {
-    figures_.push_back(move(figure));
+    figures_.emplace_back(move(figure));
     figures_.back()->draw();
-
-
+    redraw();
 }
 
 void Board::save(const string& filename) const
@@ -209,7 +210,7 @@ void Board::moveForeground() {
     }
     auto figure = move(*selected_figure_);
     figures_.erase(selected_figure_);
-    figures_.push_back(figure);
+    figures_.emplace_back(figure);
     selected_figure_ = figures_.end() - 1;
     cout << "Figure moved" << endl;
 }

@@ -72,7 +72,7 @@ bool Circle::fill(const int& x, const int& cx, const int& y, const int& cy) cons
 }
 
 ColoredChar Circle::getChar() const {
-    return ColoredChar();
+    return char_;
 }
 
 void Circle::edit(const string &color) {
@@ -84,5 +84,5 @@ void Circle::moveCoords(const IFigure::coords &newCoords) {
 }
 
 IFigure::coords Circle::getArea() const {
-    return IFigure::coords();
+    return occupied_cells_;
 }

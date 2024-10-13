@@ -130,7 +130,7 @@ bool Triangle::fill(const int& x, const int& y) const
 }
 
 ColoredChar Triangle::getChar() const {
-    return ColoredChar();
+    return char_;
 }
 
 void Triangle::edit(const string &color) {

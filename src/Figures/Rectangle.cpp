@@ -46,7 +46,7 @@ vector<string> Rectangle::getFigureInfo() const
 }
 
 ColoredChar Rectangle::getChar() const {
-    return ColoredChar();
+    return char_;
 }
 
 void Rectangle::edit(const string &color) {

@@ -36,7 +36,7 @@ namespace ParseHelper
             result = parseCommand(++rcsv_c);
         } else
         {
-            for (auto it = result.begin() + 1; it != result.end(); it++)
+            for (auto it = result.begin() + 3; it != result.end(); it++)
             {
                 try
                 {
