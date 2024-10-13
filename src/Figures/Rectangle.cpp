@@ -16,11 +16,21 @@ void Rectangle::draw()
     int right_x = get<0>(right_bottom_coords_);
     int right_y = get<1>(right_bottom_coords_);
 
-    for (int i = left_x; i <= right_x; i++)
-    {
-        for (int j = left_y; j <= right_y; j++)
-        {
-            occupied_cells_.push_back(make_tuple(i, j));
+    if (fill_type == "fill") {
+        for (int i = left_x; i <= right_x; i++) {
+            for (int j = left_y; j <= right_y; j++) {
+                occupied_cells_.push_back(make_tuple(i, j));
+            }
+        }
+    }
+    else {
+        for (int i = left_x; i <= right_x; i++) {
+            occupied_cells_.push_back(make_tuple(i, left_y));
+            occupied_cells_.push_back(make_tuple(i, right_y));
+        }
+        for (int i = left_y; i <= right_y; i++) {
+            occupied_cells_.push_back(make_tuple(left_x, i));
+            occupied_cells_.push_back(make_tuple(right_x, i));
         }
     }
 }

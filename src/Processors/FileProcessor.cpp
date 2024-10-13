@@ -34,7 +34,7 @@ vector<vector<ColoredChar>> FileProcessor::load() const
         vector<ColoredChar> row;
         for (const auto& cell : line)
         {
-            row.push_back(ColoredChar(to_string(cell), "white"));
+            row.push_back(ColoredChar(cell, "white"));
         }
         board.push_back(row);
     }

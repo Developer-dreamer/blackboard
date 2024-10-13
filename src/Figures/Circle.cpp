@@ -17,16 +17,18 @@ void Circle::draw()
 {
     bresenham(occupied_cells_);
 
-    int cx = get<0>(center_);
-    int cy = get<1>(center_);
-
-    for (int x = (cx - radius_); x <= (cx + radius_); x++)
+    if (fill_type == "fill")
     {
-        for (int y = (cy - radius_); y <= (cy + radius_); y++)
+        int cx = get<0>(center_);
+        int cy = get<1>(center_);
+        for (int x = cx - radius_; x <= cx + radius_; x++)
         {
-            if (fill(x, cx, y, cy))
+            for (int y = cy - radius_; y <= cy + radius_; y++)
             {
-                occupied_cells_.push_back(make_tuple(x, y));
+                if (fill(x, cx, y, cy))
+                {
+                    occupied_cells_.push_back(make_tuple(x, y));
+                }
             }
         }
     }
@@ -79,4 +81,8 @@ void Circle::edit(const string &color) {
 
 void Circle::moveCoords(const IFigure::coords &newCoords) {
     occupied_cells_ = newCoords;
+}
+
+IFigure::coords Circle::getArea() const {
+    return IFigure::coords();
 }

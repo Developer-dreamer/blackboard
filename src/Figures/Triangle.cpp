@@ -35,13 +35,16 @@ void Triangle::draw()
     bresenham(vertex_b_, vertex_c_, occupied_cells_);
     bresenham(vertex_a_, vertex_c_, occupied_cells_);
 
-    for (int x = min_x; x <= max_x; ++x)
+    if (fill_type == "fill")
     {
-        for (int y = min_y; y <= max_y; ++y)
+        for (int x = min_x; x <= max_x; x++)
         {
-            if (fill(x, y))
+            for (int y = min_y; y <= max_y; y++)
             {
-                occupied_cells_.push_back(make_tuple(x, y));
+                if (fill(x, y))
+                {
+                    occupied_cells_.push_back(make_tuple(x, y));
+                }
             }
         }
     }
