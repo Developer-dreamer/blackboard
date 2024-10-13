@@ -20,14 +20,15 @@ public:
     void getAllFigures() const;
     void getAllShapes() const;
     void addFigure(shared_ptr<IFigure> figure);
-    void select(const int& id) const;
-    void select(const int& x, const int& y) const;
+    void select(const int& id);
+    void select(const int& x, const int& y);
     void save(const string& filename) const;
     void load(const string& filename);
     bool operator==(const BoardMemento& memento) const;
     BoardMemento saveToMemento() const;
     void restoreFromMemento(BoardMemento memento);
 private:
+    vector<shared_ptr<IFigure>>::iterator selected_figure_;
     vector<vector<ColoredChar>> board_;
     vector<shared_ptr<IFigure>> figures_;
 };

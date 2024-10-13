@@ -1,5 +1,6 @@
 #include "Board.h"
 #include <tuple>
+#include <stdexcept>
 #include "Figures/Circle.h"
 #include "Figures/Rectangle.h"
 #include "Figures/Triangle.h"
@@ -107,19 +108,22 @@ void Board::restoreFromMemento(BoardMemento memento)
     figures_ = get<1>(state);
 }
 
-void Board::select(const int &id) const {
-    try {
-        const auto& figure = figures_.at(id);
-        cout << "Selected figure: ";
-        for (const auto& info : figure->getFigureInfo()) {
-            cout << info << " ";
-        }
-    } catch (const out_of_range& e) {
-        cout << "Figure with id " << id << " not found";
+void Board::select(const int &id) {
+
+    if (id >= figures_.size()) {
+        cout << "No figure found with id: " << id <<endl;
     }
+    selected_figure_ = figures_.begin() + id;
+
+    cout << "Selected figure: ";
+    for (const auto& info : selected_figure_->get()->getFigureInfo()) {
+        cout << info << " ";
+    }
+    cout << endl;
+
 }
 
-void Board::select(const int &x, const int &y) const {
+void Board::select(const int &x, const int &y){
     for (size_t i = 0; i < figures_.size(); i++) {
         const auto& figure = figures_.at(i);
         const auto& area = figure->getArea();
@@ -129,6 +133,7 @@ void Board::select(const int &x, const int &y) const {
                 for (const auto& info : figure->getFigureInfo()) {
                     cout << info << " ";
                 }
+                selected_figure_ = figures_.begin() + i;
                 return;
             }
         }
