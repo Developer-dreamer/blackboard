@@ -1,33 +1,23 @@
 #include "ColoredChar.h"
 
 ColoredChar::ColoredChar()
-    : ch_(" "), color_("white") {}
+    : ch_(' '), color_("\033[37m") {}
 
-ColoredChar::ColoredChar(string ch, string color)
-    : ch_(ch), color_(color) {}
+ColoredChar::ColoredChar(char ch, string color)
+    : ch_(ch){
+    color_ = convertColor(color);
+}
 
+string ColoredChar::reset() {
+    return "\033[0m";
+}
 
 string ColoredChar::getColor() const
 {
-    if (color_ == "red")
-        return "\033[31m" + ch_ + "\033[0m";
-    else if (color_ == "green")
-        return "\033[32m" + ch_ + "\033[0m";
-    else if (color_ == "yellow")
-        return "\033[33m" + ch_ + "\033[0m";
-    else if (color_ == "blue")
-        return "\033[34m" + ch_ + "\033[0m";
-    else if (color_ == "magenta")
-        return "\033[35m" + ch_ + "\033[0m";
-    else if (color_ == "cyan")
-        return "\033[36m" + ch_ + "\033[0m";
-    else if (color_ == "white")
-        return "\033[37m" + ch_ + "\033[0m";
-    else
-        return ch_;
+    return color_;
 }
 
-string ColoredChar::getChar() const
+char ColoredChar::getChar() const
 {
     return ch_;
 }
@@ -35,4 +25,27 @@ string ColoredChar::getChar() const
 bool ColoredChar::operator==(const ColoredChar& other) const
 {
     return ch_ == other.ch_ && color_ == other.color_;
+}
+void ColoredChar::editColor(const string& newColor)
+{
+    color_ = convertColor(newColor);
+}
+
+string ColoredChar::convertColor(const string& color)
+{
+    if (color == "red")
+        return "\033[31m";
+    if (color == "green")
+        return "\033[32m";
+    if (color == "yellow")
+        return "\033[33m";
+    if (color == "blue")
+        return "\033[34m";
+    if (color == "magenta")
+        return "\033[35m";
+    if (color == "cyan")
+        return "\033[36m";
+    if (color == "white")
+        return "\033[37m";
+    return "\033[37m";
 }

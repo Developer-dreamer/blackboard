@@ -6,11 +6,15 @@ using namespace std;
 class ColoredChar {
 public:
     ColoredChar();
-    ColoredChar(string ch, string color);
+    ColoredChar(char ch, string color);
     string getColor() const;
-    string getChar() const;
+    char getChar() const;
+    void editColor(const string& newColor);
+    string reset();
     bool operator==(const ColoredChar& other) const;
 private:
-    string ch_;
+    char ch_;
     string color_;
+
+    string convertColor(const string& color);
 };
