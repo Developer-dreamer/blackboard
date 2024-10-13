@@ -140,3 +140,67 @@ void Board::select(const int &x, const int &y){
     }
     cout << "No figure found at (" << x << ", " << y << ")";
 }
+
+void Board::remove() {
+    if (selected_figure_ == figures_.end()) {
+        cout << "No figure selected" << endl;
+        return;
+    }
+    figures_.erase(selected_figure_);
+    selected_figure_ = figures_.end();
+
+    cout << "Figure removed" << endl;
+    redraw();
+}
+
+void Board::edit(const vector<string>& params) {
+    if (selected_figure_ == figures_.end()) {
+        cout << "No figure selected" << endl;
+        return;
+    }
+    selected_figure_->get()->edit(params);
+    redraw();
+}
+
+void Board::paint(const string& color) {
+    if (selected_figure_ == figures_.end()) {
+        cout << "No figure selected" << endl;
+        return;
+    }
+    selected_figure_->get()->edit(color);
+}
+
+void Board::moveFigure(const int& x, const int& y){
+    if (selected_figure_ == figures_.end()) {
+        cout << "No figure selected" << endl;
+        return;
+    }
+
+    vector<tuple<int, int>> coords = selected_figure_->get()->getArea();
+    for (auto& point : coords) {
+        int new_x = get<0>(point) + x;
+        int new_y = get<1>(point) + y;
+        if (new_x < 0 || new_x >= board_.size() || new_y < 0 || new_y >= board_[0].size()) {
+            cout << "Can't move figure outside the board" << endl;
+            return;
+        }
+        get<0>(point) += x;
+        get<1>(point) += y;
+    }
+
+    selected_figure_->get()->moveCoords(coords);
+    moveForeground();
+    redraw();
+}
+
+void Board::moveForeground() {
+    if (selected_figure_ == figures_.end()) {
+        cout << "No figure selected" << endl;
+        return;
+    }
+    auto figure = move(*selected_figure_);
+    figures_.erase(selected_figure_);
+    figures_.push_back(figure);
+    selected_figure_ = figures_.end() - 1;
+    cout << "Figure moved" << endl;
+}

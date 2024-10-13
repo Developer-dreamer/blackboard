@@ -15,13 +15,16 @@ class Board {
 public:
     Board();
     void draw() const;
-    void redraw();
     void clear();
     void getAllFigures() const;
     void getAllShapes() const;
     void addFigure(shared_ptr<IFigure> figure);
     void select(const int& id);
     void select(const int& x, const int& y);
+    void moveFigure(const int& x, const int& y);
+    void remove();
+    void edit(const vector<string>& params);
+    void paint(const string& color);
     void save(const string& filename) const;
     void load(const string& filename);
     bool operator==(const BoardMemento& memento) const;
@@ -31,4 +34,7 @@ private:
     vector<shared_ptr<IFigure>>::iterator selected_figure_;
     vector<vector<ColoredChar>> board_;
     vector<shared_ptr<IFigure>> figures_;
+
+    void redraw();
+    void moveForeground();
 };
