@@ -4,48 +4,76 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <algorithm>
 #include <bits/uses_allocator.h>
 using namespace std;
 
-namespace ParseHelper
-{
-    vector<string> split(const string& str, char delimiter)
-    {
+namespace ParseHelper {
+    vector <string> split(const string &str, char delimiter) {
         vector<string> tokens;
         string token;
         istringstream tokenStream(str);
-        while (getline(tokenStream, token, delimiter))
-        {
+        while (getline(tokenStream, token, delimiter)) {
             tokens.push_back(token);
         }
         return tokens;
     }
 
-    vector<string> parseCommand(int rcsv_c)
-    {
-        if (rcsv_c > 2)
-            return vector<string>({"exit"});
+    vector <string> parseCommand(int rcsv_c) {
+        if (rcsv_c > 2) {
+            return {"exit"};
+        }
+
         cout << "Enter params: ";
         string command;
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
         getline(cin, command);
         vector<string> result = split(command, ' ');
-        if (result.capacity() < 2)
-        {
-            cout << "Invalid number of arguments" << endl;
-            result = parseCommand(++rcsv_c);
-        } else
-        {
-            for (auto it = result.begin() + 3; it != result.end(); it++)
-            {
-                try
-                {
-                    stoi(*it);
-                } catch (invalid_argument e)
-                {
-                    cout << "Incorrect arguments" << endl;
-                    result = parseCommand(++rcsv_c);
-                }
+
+        // Define allowed shapes and required argument counts
+        vector<pair<string, int>> figures = {
+                {"circle",    6},    // <shape/fill> <color> <centerX> <centerY> <radius>
+                {"rectangle", 7}, // <shape/fill> <color> <left_top_x> <left_top_y> <right_bottom_x> <right_bottom_y>
+                {"triangle",  9}   // <shape/fill> <color> <x1> <y1> <x2> <y2> <x3> <y3>
+        };
+
+        // Check if the input command is one of the allowed figures
+        auto figure = find_if(figures.begin(), figures.end(), [&](const pair<string, int> &f) {
+            return result[0] == f.first;
+        });
+
+        if (figure == figures.end()) {
+            cout << "Undefined figure. Supported shapes are 'circle', 'rectangle', 'triangle'." << endl;
+            return parseCommand(++rcsv_c);
+        }
+
+        // Check the number of arguments for the figure
+        if (result.size() != figure->second) {
+            cout << "Incorrect number of arguments for " << figure->first
+                 << ". Expected " << figure->second << " arguments." << endl;
+            return parseCommand(++rcsv_c);
+        }
+
+        // Validate drawing type
+        if (result[1] != "shape" && result[1] != "fill") {
+            cout << "Incorrect drawing type. Enter either 'shape' or 'fill'." << endl;
+            return parseCommand(++rcsv_c);
+        }
+
+        // Validate color
+        vector<string> availableColors = {"red", "green", "blue", "yellow", "magenta", "cyan", "white"};
+        if (find(availableColors.begin(), availableColors.end(), result[2]) == availableColors.end()) {
+            cout << "Incorrect color. Available colors are: red, green, blue, yellow, magenta, cyan, white." << endl;
+            return parseCommand(++rcsv_c);
+        }
+
+        // Validate that the remaining arguments are numeric (coordinates and dimensions)
+        for (size_t i = 3; i < result.size(); i++) {
+            try {
+                stoi(result[i]);
+            } catch (const invalid_argument &) {
+                cout << "Incorrect argument: " << result[i] << ". Arguments must be numbers." << endl;
+                return parseCommand(++rcsv_c);
             }
         }
 

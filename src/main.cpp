@@ -26,14 +26,12 @@ int main() {
             return 0;
         } else if (command == "save")
         {
-//            cout << "Enter the file to save board in: ";
             string filename;
             cin >> filename;
 
             board.save(filename);
         } else if (command == "load")
         {
-//            cout << "Enter the file to load board from: ";
             string filename;
             cin >> filename;
             board.load(filename);
@@ -86,7 +84,6 @@ int main() {
             }
         } else if (command == "select"){
             int id;
-//            cout << "Enter the id of the figure: ";
             cin >> id;
             board.select(id);
         } else if (command == "remove"){
@@ -94,19 +91,16 @@ int main() {
             caretaker.save(board.saveToMemento());
         } else if (command == "move"){
             int x, y;
-//            cout << "Enter the x and y coordinates: ";
             cin >> x >> y;
             board.moveFigure(x, y);
             caretaker.save(board.saveToMemento());
         } else if (command == "edit"){
             int param;
-//            cout << "Enter the parameter: ";
             cin >> param;
             board.expandFigure(param);
             caretaker.save(board.saveToMemento());
         } else if (command == "paint"){
             string color;
-//            cout << "Enter the color: ";
             cin >> color;
             board.paint(color);
             caretaker.save(board.saveToMemento());
