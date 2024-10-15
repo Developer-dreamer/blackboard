@@ -81,6 +81,7 @@ void Circle::edit(const string &color) {
 
 void Circle::moveCoords(const IFigure::coords &newCoords) {
     occupied_cells_ = newCoords;
+    return;
 }
 
 IFigure::coords Circle::getArea() const {

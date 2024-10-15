@@ -170,6 +170,8 @@ void Board::expandFigure(const int& param) {
         get<0>(point) *= param;
         get<1>(point) *= param;
     }
+    selected_figure_->get()->moveCoords(coords);
+    redraw();
 }
 
 void Board::paint(const string& color) {
