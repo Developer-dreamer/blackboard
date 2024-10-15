@@ -27,5 +27,5 @@ add_executable(blackboard
     src/Figures/Circle.cpp
         src/Helper/ParseHelper.cpp
         include/ParseHelper.h
-        include/ColoredChar.cpp
-        include/ColoredChar.h)
+        src/Helper/ColoredChar.cpp
+        src/Helper/ColoredChar.h)

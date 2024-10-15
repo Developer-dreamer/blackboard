@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "Board.h"
-#include "ColoredChar.h"
+#include "src/Helper/ColoredChar.h"
 #include "IFigure.h"
 using namespace std;
 

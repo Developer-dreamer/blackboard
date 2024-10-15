@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include "BoardMemento.h"
-#include "ColoredChar.h"
+#include "src/Helper/ColoredChar.h"
 
 using namespace std;
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "ColoredChar.h"
+#include "src/Helper/ColoredChar.h"
 
 using namespace std;
 
