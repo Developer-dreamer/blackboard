@@ -104,9 +104,9 @@ int main() {
             board.moveFigure(x, y);
             caretaker.save(board.saveToMemento());
         } else if (command == "edit"){
-            string color;
-            cin >> color;
-            board.paint(color);
+            int expandingFactor;
+            cin >> expandingFactor;
+            board.expandFigure(expandingFactor);
             caretaker.save(board.saveToMemento());
         } else if (command == "paint"){
             string color;

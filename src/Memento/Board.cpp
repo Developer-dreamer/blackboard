@@ -135,6 +135,7 @@ void Board::select(const int &x, const int &y){
                 for (const auto& info : figure->getFigureInfo()) {
                     cout << info << " ";
                 }
+                cout << endl;
                 selected_figure_ = figures_.begin() + i;
                 return;
             }
