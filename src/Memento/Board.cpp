@@ -109,6 +109,7 @@ void Board::restoreFromMemento(BoardMemento memento)
     figures_ = get<1>(state);
 }
 
+// ids start from 0
 void Board::select(const int &id) {
 
     if (id >= figures_.size()) {
@@ -180,6 +181,7 @@ void Board::paint(const string& color) {
         return;
     }
     selected_figure_->get()->edit(color);
+    redraw();
 }
 
 void Board::moveFigure(const int& x, const int& y){

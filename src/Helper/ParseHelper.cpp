@@ -79,4 +79,21 @@ namespace ParseHelper {
 
         return result;
     }
+
+    tuple<int, int> parseSelector() {
+        cout << "Enter the selection factor (id / coords): ";
+        string selector;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        getline(cin, selector);
+        vector<string> coords = split(selector, ' ');
+        if (coords.size() == 1) {
+            return make_tuple(stoi(selector), -1);
+        } else if (coords.size() == 2) {
+            return make_tuple(stoi(coords[0]), stoi(coords[1]));
+        } else {
+            cout << "Incorrect number of arguments. Expected 1 or 2 arguments." << endl;
+            return make_tuple(-1, -1);
+        }
+
+    }
 }

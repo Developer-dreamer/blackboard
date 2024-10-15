@@ -83,9 +83,18 @@ int main() {
                 caretaker.save(board.saveToMemento());
             }
         } else if (command == "select"){
-            int id;
-            cin >> id;
-            board.select(id);
+            // ids start from 0
+            tuple <int, int> selector = ParseHelper::parseSelector();
+            if (get<0>(selector) == -1 && get<1>(selector) == -1) {
+                cout << "Incorrect arguments." << endl;
+                break;
+            } else if (get<1>(selector) == -1)
+            {
+                board.select(get<0>(selector));
+            } else {
+                board.select(get<0>(selector), get<1>(selector));
+                caretaker.save(board.saveToMemento());
+            }
         } else if (command == "remove"){
             board.remove();
             caretaker.save(board.saveToMemento());
@@ -95,9 +104,9 @@ int main() {
             board.moveFigure(x, y);
             caretaker.save(board.saveToMemento());
         } else if (command == "edit"){
-            int param;
-            cin >> param;
-            board.expandFigure(param);
+            string color;
+            cin >> color;
+            board.paint(color);
             caretaker.save(board.saveToMemento());
         } else if (command == "paint"){
             string color;
